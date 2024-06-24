@@ -26,4 +26,33 @@ public class EnderecoDAO {
             System.out.println("Código: " + e.getErrorCode() + "\n" + "Mensagem: " + e.getMessage());
         }
     }
+
+    public static Endereco setId() throws SQLException {
+        String sql = "SELECT * FROM Endereco WHERE id = (SELECT MAX(id) FROM Endereco)";
+
+        try(Connection conectar = Util.getConnection();
+            PreparedStatement pstmt = conectar.prepareStatement(sql)) {
+                        
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    Endereco endereco = new Endereco();
+                    endereco.setId(rs.getInt("id"));
+                    endereco.setCep(rs.getString("cep"));
+                    endereco.setLogradouro(rs.getString("logradouro"));
+                    endereco.setNumero(rs.getString("numero"));
+                    endereco.setBairro(rs.getString("bairro"));
+                    endereco.setLocalidade(rs.getString("localidade"));
+                    endereco.setUf(rs.getString("uf"));
+                    endereco.setComplemento(rs.getString("complemento"));
+
+                    return endereco;
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao retornar denuncia: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao retornar denuncia: " + e.getMessage());
+        }
+        return null; 
+    }
 }

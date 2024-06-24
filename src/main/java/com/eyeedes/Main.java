@@ -133,6 +133,8 @@ public class Main {
 
                                     EnderecoDAO.salvaEndereco(endereco);
 
+                                    endereco = EnderecoDAO.setId();
+
                                     valida = true;
                                 } else if(val == 2) {} else {
                                     System.out.println("Opção inválida");
@@ -159,6 +161,26 @@ public class Main {
 
                             VistoriaDAO.novaVistoria(vistoria);
                         }
+                        break;
+                    case 2: 
+                        if(usuario.getTipoDeCadastro() == TipoCadastro.Civil) {
+                            DenunciaDAO.retornarDeununcia();
+                        } else {
+                            VistoriaDAO.retornarVistoria();
+                        }
+                        break;
+                    case 3:
+                        System.out.println("Insira a nova senha: ");
+                        String senha = scanner.nextLine();
+
+                        UsuarioDAO.alterarSenha(usuario, senha);
+                        break;
+                    case 4:
+                        opera = false;
+                        break;
+                    default:
+                        System.out.println("Operação inválida!");    
+                        
                 }
                 
             }

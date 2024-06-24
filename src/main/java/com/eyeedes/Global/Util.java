@@ -23,7 +23,7 @@ public interface Util {
     }
 
     public static void inativarCadastro(int id, String tabela) { /*Arthur*/
-        String sql = "UPDATE " + tabela + " SET dataInativacao = ? WHERE ID = ?";
+        String sql = "UPDATE " + tabela + " SET dataInativacao = ? WHERE id = ?";
         PreparedStatement pstmt = null;
         String dataInativacao = Util.RegistraDataAtual();
 

@@ -11,7 +11,7 @@ public class VistoriaDAO {
     public VistoriaDAO() {}
 
     public static void novaVistoria(Vistoria vistoria) {
-        String sql = "INSERT INTO Vistoria(ID, ID_denuncia, ID_vistoriador, endereco, descricao, dataVisita) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vistoria(id, denunciaId, vistoriadorId, enderecoId, descricao, dataCadastro) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -30,7 +30,7 @@ public class VistoriaDAO {
     }
 
     public static void alterarVistoria(Vistoria vistoria) {
-        String sql = "UPDATE Vistoria SET ID_denuncia = ?, ID_vistoriador = ?, endereco = ?, descricao = ?, dataVisita = ? WHERE ID = ?";
+        String sql = "UPDATE Vistoria SET denunciaId = ?, vistoriadorId = ?, enderecoId = ?, descricao = ?, dataCadastro = ? WHERE id = ?";
 
         try (Connection conn = Util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

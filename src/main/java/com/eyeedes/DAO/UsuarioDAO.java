@@ -42,8 +42,8 @@ public class UsuarioDAO {
         Util.consultaTabela("Usuario");
     }
 
-    public static void alterarSenha(String email, String novaSenha){
-        String sql = "UPDATE Usuario SET hash = ?, salt = ? WHERE email = ?";
+    public static void alterarSenha(Usuario usuario, String novaSenha){
+        String sql = "UPDATE Usuario SET hash = ?, salt = ? WHERE id = ?";
 
         try(PreparedStatement pstmt = Util.getConnection().prepareStatement(sql)){
             String atualizaSalt = CriptografiaSenha.gerarSalt();
@@ -51,7 +51,7 @@ public class UsuarioDAO {
 
             pstmt.setString(1, atualizaHash);
             pstmt.setString(2, atualizaSalt);
-            pstmt.setString(3, email);
+            pstmt.setInt(3, usuario.getId());
             pstmt.executeUpdate();
 
             System.out.println(("Atualizado!"));
