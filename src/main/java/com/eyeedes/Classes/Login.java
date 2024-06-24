@@ -59,6 +59,7 @@ public class Login {
         try (Connection conectar = Util.getConnection();
              PreparedStatement pstmt = conectar.prepareStatement(sql)) {
             pstmt.setString(1, email);
+            
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     String hash = rs.getString("hash");
@@ -70,6 +71,13 @@ public class Login {
                         usuario.setNome(rs.getString("nome"));
                         usuario.setEmail(rs.getString("email"));
                         usuario.setCpf(rs.getString("cpf"));
+
+                        if(rs.getInt("tipoCadastroID") == 1) {
+                            usuario.setTipoDeCadastro(TipoCadastro.Civil);
+                        } else {
+                            usuario.setTipoDeCadastro(TipoCadastro.Vistoriador);
+                        }
+
                         setUsuarioLogado(usuario);
                         return usuario;
                     }
