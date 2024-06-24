@@ -1,15 +1,10 @@
 package com.eyeedes.Global;
 
-import com.eyeedes.Classes.TipoCadastro;
-import com.eyeedes.Classes.Usuario;
-import com.eyeedes.DAO.UsuarioDAO;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -65,6 +60,7 @@ public interface Util {
                 for(int i = 1; i<= colunas; i++){
                     System.out.println(rs.getString(i) + " ");
                 }
+                System.out.println("------------------------");
                 System.out.println();
             }
         } catch (SQLException e) {
