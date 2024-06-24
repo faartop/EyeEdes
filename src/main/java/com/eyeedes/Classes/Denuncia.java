@@ -13,18 +13,16 @@ public class Denuncia {
     private String dataCadastro;
     private String dataInativacao;
 
-    public Denuncia(int denuncianteId, int enderecoId, String descricao, int anexoId) {
-        this.denuncianteId = denuncianteId;
+    public Denuncia(Usuario usuario, Endereco endereco, Anexo anexo, String descricao) {
+        this.denuncianteId = usuario.getId();
         this.statusId = 1;
-        this.enderecoId = enderecoId;
+        this.enderecoId = endereco.getId();    
         this.descricao = descricao;
-        this.anexoId = anexoId;
+        this.anexoId = anexo.getId();
         this.dataCadastro = Util.RegistraDataAtual();
     }
 
-    public Denuncia() {
-
-    }
+    public Denuncia() {}
 
     public int getId() {
         return id;

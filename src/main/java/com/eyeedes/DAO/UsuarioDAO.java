@@ -17,7 +17,8 @@ public class UsuarioDAO {
         String dataCadastro = Util.RegistraDataAtual();
         String cpfFormatado = Util.formataCPF(usuario.getCpf());
 
-        try(Connection conectar = Util.getConnection(); PreparedStatement pstmt = conectar.prepareStatement(sql)){
+        try(Connection conectar = Util.getConnection();
+            PreparedStatement pstmt = conectar.prepareStatement(sql)){
             pstmt.setString(1,usuario.getNome());
             pstmt.setString(2,usuario.getEmail());
             pstmt.setString(3,cpfFormatado);

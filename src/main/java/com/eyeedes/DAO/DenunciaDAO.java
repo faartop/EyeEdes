@@ -7,17 +7,12 @@ import java.sql.*;
 
 public class DenunciaDAO {
 
-    private static Connection conectar = Util.getConnection();
-
-    public DenunciaDAO(Connection conectar){
-        conectar = Util.getConnection();
-    }
-
     public static void novaDenuncia(Denuncia denuncia){
-        String sql = "INSERT INTO Denuncia (denuncianteId, statusId, enderecoId, descricao, anexoId,dataAbertura) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Denuncia (denuncianteId, statusId, enderecoId, descricao, anexoId, dataCadastro) VALUES (?,?,?,?,?,?)";
         String dataAbertura = Util.RegistraDataAtual();
 
-        try(PreparedStatement pstmt = conectar.prepareStatement(sql)){
+        try (Connection conectar = Util.getConnection();
+             PreparedStatement pstmt = conectar.prepareStatement(sql)) {
             pstmt.setInt(1, denuncia.getDenuncianteId());
             pstmt.setInt(2, denuncia.getStatusId());
             pstmt.setInt(3, denuncia.getEnderecoId());
@@ -25,11 +20,31 @@ public class DenunciaDAO {
             pstmt.setInt(5, denuncia.getAnexoId());
             pstmt.setString(6, dataAbertura);
             pstmt.executeUpdate();
-        } catch(SQLException e){
-            System.out.println("Código: " + e.getErrorCode() + "\nMensagem: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao inserir nova denúncia. Código: " + e.getErrorCode() + " Mensagem: " + e.getMessage());
         }
     }
 
+    public static void alterarDenuncia(Denuncia denuncia) {
+        String sql = "UPDATE Denuncia SET statusId = ?, enderecoId = ?, descricao = ? WHERE ID = ?";
 
+        try (Connection conectar = Util.getConnection();
+             PreparedStatement pstmt = conectar.prepareStatement(sql)) {
+            pstmt.setInt(1, denuncia.getStatusId());
+            pstmt.setInt(2, denuncia.getEnderecoId());
+            pstmt.setString(3, denuncia.getDescricao());
+            pstmt.setInt(4, denuncia.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar denúncia. Código: " + e.getErrorCode() + " Mensagem: " + e.getMessage());
+        }
+    }
 
+    public static void inativarDenuncia(Denuncia denuncia) {
+        Util.inativarCadastro(denuncia.getId(), "Denuncia");
+    }
+
+    public static void retornarDeununcia() {
+        Util.consultaTabela("Denuncia");
+    }
 }
