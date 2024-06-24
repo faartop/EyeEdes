@@ -188,5 +188,10 @@ public class Main {
         }
         
         scanner.close();
+
+        /*Denuncia denuncia = new Denuncia();
+        denuncia.setId(1);
+        DenunciaDAO.inativarDenuncia(denuncia); */
     }
+
 }
