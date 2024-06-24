@@ -1,20 +1,22 @@
 package com.eyeedes.Classes;
 
+import com.eyeedes.Global.Util;
+
 public class Vistoria {
     private int ID;
     private int ID_denuncia;
     private int ID_vistoriador;
-    private String endereco;
+    private int endereco;
     private String descricao;
-    private java.sql.Date dataVisita;
+    private String dataVisita;
+    private String dataInativacao;
 
-    public Vistoria(int ID, int ID_denuncia, int ID_vistoriador, String endereco, String descricao, java.sql.Date dataVisita) {
-        this.ID = ID;
-        this.ID_denuncia = ID_denuncia;
-        this.ID_vistoriador = ID_vistoriador;
-        this.endereco = endereco;
+    public Vistoria(Denuncia denuncia, Usuario vistoriador, String descricao) {
+        this.ID_denuncia = denuncia.getId();
+        this.ID_vistoriador = vistoriador.getId();
+        this.endereco = denuncia.getEnderecoId();
         this.descricao = descricao;
-        this.dataVisita = dataVisita;
+        this.dataVisita = Util.RegistraDataAtual();
     }
 
     public int getID() {
@@ -34,18 +36,18 @@ public class Vistoria {
     }
 
     public int getID_vistoriador() {
-        return this. ID_vistoriador;
+        return this.ID_vistoriador;
     }
 
     public void setID_vistoriador(int ID_vistoriador) {
         this.ID_vistoriador = ID_vistoriador;
     }
 
-    public String getEndereco() {
+    public int getEndereco() {
         return this.endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(int endereco) {
         this.endereco = endereco;
     }
 
@@ -57,11 +59,19 @@ public class Vistoria {
         this.descricao = descricao;
     }
 
-    public java.sql.Date getdataVisita() {
+    public String getDataVisita() {
         return this.dataVisita;
     }
 
-    public void setdataVisita(java.sql.Date dataVisita) {
+    public void setDataVisita(String dataVisita) {
         this.dataVisita = dataVisita;
+    }
+
+    public String getDataInativacao() {
+        return this.dataInativacao;
+    }
+
+    public void setDataInativacao(String dataInativacao) {
+        this.dataInativacao = dataInativacao;
     }
 }

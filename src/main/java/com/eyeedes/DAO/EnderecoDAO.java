@@ -1,40 +1,17 @@
 package com.eyeedes.DAO;
 
-import com.eyeedes.API.ApiConnection;
 import com.eyeedes.Classes.Endereco;
 import com.eyeedes.Global.Util;
-import org.json.JSONObject;
 
-import java.io.IOException;
 import java.sql.*;
 
 public class EnderecoDAO {
-    public Connection conectar = Util.getConnection();
 
-    public EnderecoDAO(Connection conectar){
-        this.conectar = conectar;
-    }
-
-    public Endereco obterEndereco(String cep) throws IOException{
-        JSONObject enderecoJson = ApiConnection.apiCEP(cep);
-        if(enderecoJson != null){
-            return new Endereco(
-                    enderecoJson.optString("cep"),
-                    enderecoJson.optString("logradouro"),
-                    "",
-                    enderecoJson.optString("bairro"),
-                    enderecoJson.optString("localidade"),
-                    enderecoJson.optString("uf"),
-                    ""
-            );
-        }
-        return null;
-    }
-
-    public int salvaEndereco(Endereco endereco){
+    public static void salvaEndereco(Endereco endereco) {
         String sql = "INSERT INTO Endereco (cep, logradouro, numero, bairro, localidade, uf, complemento) VALUES (?,?,?,?,?,?,?)";
-        int generatedId = -1;
-        try(PreparedStatement pstmt = conectar.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+
+        try(Connection conectar = Util.getConnection();
+            PreparedStatement pstmt = conectar.prepareStatement(sql)) {
             pstmt.setString(1, endereco.getCep());
             pstmt.setString(2, endereco.getLogradouro());
             pstmt.setString(3, endereco.getNumero());
@@ -44,29 +21,9 @@ public class EnderecoDAO {
             pstmt.setString(7, endereco.getComplemento());
             pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                generatedId = rs.getInt(1);
-            }
+            System.out.println("Endereço cadastrado com sucesso!");
         } catch(SQLException e){
-            System.out.println("Código: " + e.getErrorCode() + "\nMensagem: " + e.getMessage());
+            System.out.println("Código: " + e.getErrorCode() + "\n" + "Mensagem: " + e.getMessage());
         }
-        return generatedId;
     }
-
-    public int cadastraEnderecoAPI(String cep, String numero, String complemento) throws IOException{
-        Endereco endereco = obterEndereco(cep);
-        if (endereco != null) {
-            endereco.setNumero(numero);
-            endereco.setComplemento(complemento);
-            int enderecoId = salvaEndereco(endereco);
-            if (enderecoId != -1) {
-                System.out.println("Endereço cadastrado com sucesso!");
-                return enderecoId;
-            }
-        }
-        System.out.println("Não foi possível obter os dados do CEP.");
-        return -1;
-    }
-
 }

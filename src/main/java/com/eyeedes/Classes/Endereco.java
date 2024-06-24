@@ -1,5 +1,7 @@
 package com.eyeedes.Classes;
 
+import org.json.JSONObject;
+
 public class Endereco {
     public int id;
     public String cep;
@@ -10,6 +12,8 @@ public class Endereco {
     public String uf;
     public String complemento;
 
+    public Endereco() {}
+    
     public Endereco(String cep, String logradouro, String numero, String bairro, String localidade, String uf, String complemento) {
         this.cep = cep;
         this.logradouro = logradouro;
@@ -17,6 +21,16 @@ public class Endereco {
         this.bairro = bairro;
         this.localidade = localidade;
         this.uf = uf;
+        this.complemento = complemento;
+    }
+
+    public Endereco(JSONObject json, String numero, String complemento){
+        this.cep = json.optString("cep");
+        this.logradouro = json.optString("logradouro");
+        this.bairro = json.optString("bairro");
+        this.localidade = json.optString("localidade");
+        this.uf = json.optString("uf");
+        this.numero = numero;
         this.complemento = complemento;
     }
 
