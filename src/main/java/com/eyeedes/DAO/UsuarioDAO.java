@@ -1,25 +1,20 @@
 package com.eyeedes.DAO;
 
 import com.eyeedes.Classes.CriptografiaSenha;
-import com.eyeedes.Classes.Login;
 import com.eyeedes.Classes.Usuario;
 import com.eyeedes.Global.Util;
-import com.eyeedes.Validadores.UsuarioLogin;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UsuarioDAO {
-    private Connection conectar;
-    public UsuarioDAO(Connection conectar){
-        this.conectar = conectar;
+    public UsuarioDAO() {
     }
 
     public static void novoUsuario(Usuario usuario){
+        
         String sql = "INSERT INTO Usuario (nome, email, cpf, dataCadastro, tipoCadastroId, hash, salt) VALUES (?,?,?,?,?,?,?)";
         String dataCadastro = Util.RegistraDataAtual();
         String cpfFormatado = Util.formataCPF(usuario.getCpf());
@@ -33,6 +28,8 @@ public class UsuarioDAO {
             pstmt.setString(6,usuario.getHash());
             pstmt.setString(7,usuario.getSalt());
             pstmt.executeUpdate();
+            
+            System.out.println("Usuario cadastrado com sucesso!");
         } catch(SQLException e){
             System.out.println("Código: " + e.getErrorCode() + "\n" + "Mensagem: " + e.getMessage());
         }
@@ -70,11 +67,8 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-
-
-
-    public static void inativarCadastro(Usuario usuario){
-
+    public static void inativarUsuario(Usuario usuario) {
+        Util.inativarCadastro(usuario.getId(), "Usuario");
     }
 
 

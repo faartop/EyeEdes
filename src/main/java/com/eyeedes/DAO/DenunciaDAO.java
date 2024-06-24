@@ -1,19 +1,16 @@
 package com.eyeedes.DAO;
 
 import com.eyeedes.Classes.Denuncia;
-import com.eyeedes.Classes.Usuario;
 import com.eyeedes.Global.Util;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class DenunciaDAOST {
+public class DenunciaDAO {
 
     private static Connection conectar = Util.getConnection();
 
-    public DenunciaDAOST(Connection conectar){
-        this.conectar = Util.getConnection();
+    public DenunciaDAO(Connection conectar){
+        conectar = Util.getConnection();
     }
 
     public static void novaDenuncia(Denuncia denuncia){

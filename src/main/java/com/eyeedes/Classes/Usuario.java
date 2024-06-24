@@ -22,11 +22,9 @@ public class Usuario {
             this.hash = CriptografiaSenha.gerarHash(senha, this.salt);
         }
 
-    public Usuario() {
+        public Usuario() {}
 
-    }
-
-    public String getSalt() {
+        public String getSalt() {
             return salt;
         }
 

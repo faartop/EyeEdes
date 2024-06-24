@@ -9,7 +9,7 @@ public class Anexo {
 
     public Anexo(String link) {
         this.link = link;
-        this.dataAnexo = dataAnexo;
+        this.dataAnexo = Util.RegistraDataAtual();
     }
 
     public int getId() {

@@ -2,10 +2,6 @@ package com.eyeedes.Classes;
 
 import com.eyeedes.Global.Util;
 
-import java.sql.Date;
-import java.time.LocalDate;
-
-
 public class Denuncia {
     public Usuario usuario;
     private int id;

@@ -25,7 +25,4 @@ public class TipoCadastro {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-
-
 }

@@ -5,17 +5,17 @@ import com.eyeedes.Classes.Endereco;
 import com.eyeedes.Global.Util;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class EnderecoDAO {
-    private Endereco endereco;
     public Connection conectar = Util.getConnection();
 
     public EnderecoDAO(Connection conectar){
         this.conectar = conectar;
     }
 
-    public Endereco obterEndereco(String cep){
+    public Endereco obterEndereco(String cep) throws IOException{
         JSONObject enderecoJson = ApiConnection.apiCEP(cep);
         if(enderecoJson != null){
             return new Endereco(
@@ -54,7 +54,7 @@ public class EnderecoDAO {
         return generatedId;
     }
 
-    public int cadastraEnderecoAPI(String cep, String numero, String complemento){
+    public int cadastraEnderecoAPI(String cep, String numero, String complemento) throws IOException{
         Endereco endereco = obterEndereco(cep);
         if (endereco != null) {
             endereco.setNumero(numero);

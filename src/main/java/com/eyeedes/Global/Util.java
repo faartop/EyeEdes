@@ -90,7 +90,7 @@ public interface Util {
     }
 
     public static Connection getConnection(){
-        String url = "jdbc:sqlite:C:/Users/lgvip/DataGripProjects/CRUD/identifier.sqlite";
+        String url = "jdbc:sqlite:C:/Users/Arthur/Documents/EyeEdes/database.db/";
         Connection conexao = null;
 
         try{
