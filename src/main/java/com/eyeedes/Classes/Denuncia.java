@@ -3,7 +3,6 @@ package com.eyeedes.Classes;
 import com.eyeedes.Global.Util;
 
 public class Denuncia {
-    public Usuario usuario;
     private int id;
     private int denuncianteId;
     private int statusId;
@@ -13,12 +12,11 @@ public class Denuncia {
     private String dataCadastro;
     private String dataInativacao;
 
-    public Denuncia(Usuario usuario, Endereco endereco, Anexo anexo, String descricao) {
+    public Denuncia(Usuario usuario, Endereco endereco, String descricao) {
         this.denuncianteId = usuario.getId();
         this.statusId = 1;
         this.enderecoId = endereco.getId();    
         this.descricao = descricao;
-        this.anexoId = anexo.getId();
         this.dataCadastro = Util.RegistraDataAtual();
     }
 
@@ -36,8 +34,8 @@ public class Denuncia {
         return denuncianteId;
     }
 
-    public void setDenuncianteId(int denuncianteId) {
-        this.denuncianteId = usuario.getId();
+    public void setDenuncianteId(int id) {
+        this.denuncianteId = id;
     }
 
     public int getStatusId() {

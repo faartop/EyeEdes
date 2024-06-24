@@ -40,6 +40,34 @@ public class DenunciaDAO {
         }
     }
 
+    public static Denuncia umaDenuncia(int id) throws SQLException {
+        String sql = "SELECT * FROM Denuncia WHERE id = ?";
+
+        try(Connection conectar = Util.getConnection();
+            PreparedStatement pstmt = conectar.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if(rs.next()) {
+                    Denuncia denuncia = new Denuncia();
+                    denuncia.setId(rs.getInt("id"));
+                    denuncia.setDenuncianteId(rs.getInt("denuncianteId"));
+                    denuncia.setEnderecoId(rs.getInt("enderecoId"));
+                    denuncia.setStatusId(rs.getInt("statusId"));
+                    denuncia.setDescricao(rs.getString("descricao"));
+                    denuncia.setDataCadastro(rs.getString("dataCadastro"));
+
+                    return denuncia;
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao retornar denuncia: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao retornar denuncia: " + e.getMessage());
+        }
+        return null; 
+    }
+
     public static void inativarDenuncia(Denuncia denuncia) {
         Util.inativarCadastro(denuncia.getId(), "Denuncia");
     }

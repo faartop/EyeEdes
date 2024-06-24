@@ -68,14 +68,8 @@ public class Usuario {
             this.hash = CriptografiaSenha.gerarHash(senha, this.salt);
         }
 
-        public int getTipoDeCadastro(int id) {
-           switch(id){
-               case 1:
-                   return TipoCadastro.Civil.getId();
-               case 2:
-                   return TipoCadastro.Vistoriador.getId();
-           }
-           return id;
+        public TipoCadastro getTipoDeCadastro() {
+           return tipoDeCadastro;
         }
 
         public void setTipoDeCadastro(TipoCadastro tipoDeCadastro) {
